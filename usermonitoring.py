@@ -7,6 +7,7 @@
 ##############################################
 
 import pwd
+import subprocess
 from systemd import login
 
 def listusers():
@@ -27,3 +28,21 @@ def listusers():
         userList.append(user)
     userList = sorted(userList, key=lambda k: k['UID'])
     return userList
+
+def diskusagehome(uid):
+    try:
+        username = pwd.getpwuid(uid).pw_name
+    except KeyError:
+        return None
+    if uid == 0:
+        directory = "/root"
+    elif uid >= 1000:
+        directory = "/home/{}".format(username)
+    else:
+        return None
+    output = subprocess.check_output(["sudo", "du", "-sh", "{}".format(directory)])
+    size = int(output.partition(b",")[0].decode())
+    return size
+
+
+print("Disk usage of user with UID {} : {} MB".format(1001, diskusagehome(1001)))
