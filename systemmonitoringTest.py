@@ -10,7 +10,7 @@ import systemmonitoring
 from syslog import (LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR,
                     LOG_WARNING, LOG_NOTICE, LOG_INFO, LOG_DEBUG)
 
-#function prints out the log list
+#function prints out the log list for recentlogmessages() function
 def printLogs(logList):  
     if logList:
         for log in logList[-10:]: print(log)
@@ -20,20 +20,20 @@ def printLogs(logList):
 ###########  Main begins  ###########
 
 print("Welcome to test script for 'systemmonitoring' module!")
-selection = input("Press 1 for recentlogmessages() or press 2 for probtcpport(): ")
+selection = (input("Press 1 for recentlogmessages() or press 2 for probtcpport(): ")).strip()
 while selection !="1" and selection !="2" and selection:
-    selection = input("Please enter a valid input: ")
+    selection = (input("Please enter a valid input: ")).strip()
     
 if selection == "1":
     logList = []                    
-    selection = input("Press 'Enter' for existing test or enter a systemd unit: ")
+    selection = (input("Press 'Enter' for existing test or enter a systemd unit: ")).strip()
     if selection:
         print("\u001b[37;1m---- {} Logs ----\u001b[0m".format(selection))
         logList = systemmonitoring.recentlogmessages(selection)
         printLogs(logList)
     else:
         #random systemd units for testing
-        unitList = ["rsyslog.service", "cron.service", "aaa.daemon"]   
+        unitList = ["rsyslog.service", "cron.service", "aaaw.daemon", "network.service"]   
     
         for unit in unitList:
             print("\u001b[37;1m---- {} Logs ----\u001b[0m".format(unit))
@@ -41,13 +41,21 @@ if selection == "1":
             printLogs(logList)
 
 elif selection == "2":
-    print("Selection number 2")
+    selection = input("Press 'Enter' for existing test or enter an ip address and port: ")
     
+    #gets ip address and port number seperately
+    selection = selection.rstrip().replace(" ", ":").split(":")
     
-    
-    
-    
-    
-    
-    
-    
+    if selection[0] != "":
+        if systemmonitoring.probtcpport(selection[0], selection[1]): status = "success" 
+        else: status = "fail"
+        print("Probing {} on port {}: {}".format(selection[0], selection[1], status))      
+    else:
+        #random address-port combinations
+        addressList= [["127.0.0.1", "25"], ["127.0.0.1","80"], ["127.0.0.53","53"],
+                      ["www.something.com","443"], ["127.0.0.1","6899"], ["www.google.com","443"]]
+        for address in addressList:
+            if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
+            else: status = "fail"
+            print("Probing {} on port {}: {}".format(address[0], address[1], status))
+            
