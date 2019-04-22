@@ -50,7 +50,7 @@ if selection == "1":
 elif selection == "2":
     selection = input("Press 'Enter' for existing test or enter an ip address and port: ")
     
-    #gets ip address and port number seperately
+    #seperates port number from the ip address
     selection = selection.rstrip().replace(" ", ":").split(":")
     
     if selection[0] != "":
