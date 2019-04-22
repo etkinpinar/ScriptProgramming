@@ -37,5 +37,3 @@ def probtcpport(address, portnumber):
         return True
     except:
         return False
-
-
