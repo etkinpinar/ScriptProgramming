@@ -37,9 +37,12 @@ if selection == "1":
                     ["aaaw.daemon",LOG_INFO], ["network.service",LOG_INFO]]   
     
         for unit in unitList:
+            #query without specifying priority level
             print("\u001b[37;1m--- {} Logs with priority {} ---\u001b[0m".format(unit[0],LOG_WARNING))
             logList = systemmonitoring.recentlogmessages(unit[0])
             printLogs(logList)        
+            
+            #query with specifying priority level
             print("\u001b[37;1m--- {} Logs with priority {} ---\u001b[0m".format(unit[0],unit[1]))
             logList = systemmonitoring.recentlogmessages(unit[0],unit[1])
             printLogs(logList)
@@ -58,8 +61,8 @@ elif selection == "2":
         #random address-port combinations
         addressList= [["127.0.0.1", "25"], ["127.0.0.1","80"], ["127.0.0.53","53"],
                       ["www.something.com","443"], ["127.0.0.1","6899"], ["www.google.com","443"]]
+        
         for address in addressList:
             if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
             else: status = "fail"
             print("Probing {} on port {}: {}".format(address[0], address[1], status))
-    
