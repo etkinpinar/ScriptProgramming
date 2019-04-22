@@ -15,7 +15,7 @@ def printLogs(logList):
     if logList:
         for log in logList[-10:]: print(log)
     else:
-        print("Logs not found. Either there is no recent log messages or there is no such unit.")
+        print("Logs not found. Either there is no recent log messages with given priority or there is no such unit.")
 
 ###########  Main begins  ###########
 
@@ -32,12 +32,16 @@ if selection == "1":
         logList = systemmonitoring.recentlogmessages(selection)
         printLogs(logList)
     else:
-        #random systemd units for testing
-        unitList = ["rsyslog.service", "cron.service", "aaaw.daemon", "network.service"]   
+        #random systemd units with info priority for testing
+        unitList = [["rsyslog.service",LOG_INFO], ["cron.service",LOG_INFO], 
+                    ["aaaw.daemon",LOG_INFO], ["network.service",LOG_INFO]]   
     
         for unit in unitList:
-            print("\u001b[37;1m---- {} Logs ----\u001b[0m".format(unit))
-            logList = systemmonitoring.recentlogmessages(unit)
+            print("\u001b[37;1m--- {} Logs with priority {} ---\u001b[0m".format(unit[0],LOG_WARNING))
+            logList = systemmonitoring.recentlogmessages(unit[0])
+            printLogs(logList)        
+            print("\u001b[37;1m--- {} Logs with priority {} ---\u001b[0m".format(unit[0],unit[1]))
+            logList = systemmonitoring.recentlogmessages(unit[0],unit[1])
             printLogs(logList)
 
 elif selection == "2":
@@ -58,4 +62,4 @@ elif selection == "2":
             if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
             else: status = "fail"
             print("Probing {} on port {}: {}".format(address[0], address[1], status))
-            
+    
