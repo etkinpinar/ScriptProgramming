@@ -51,7 +51,7 @@ elif selection == "2":
     selection = input("Press 'Enter' for existing test or enter an ip address and port: ")
     
     #seperates port number from the ip address
-    selection = selection.rstrip().replace(" ", ":").split(":")
+    selection = selection.strip().replace(" ", ":").split(":")
     
     if selection[0] != "":
         if systemmonitoring.probtcpport(selection[0], selection[1]): status = "success" 
@@ -66,3 +66,7 @@ elif selection == "2":
             if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
             else: status = "fail"
             print("Probing {} on port {}: {}".format(address[0], address[1], status))
+    
+    
+    
+    

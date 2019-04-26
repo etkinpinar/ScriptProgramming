@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-04-21
+# DATE OF LAST CHANGE: 2019-04-22
 ##############################################
 
 import socket
@@ -12,7 +12,7 @@ from systemd import journal
 from syslog import (LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR,
                     LOG_WARNING, LOG_NOTICE, LOG_INFO, LOG_DEBUG)
 
-def recentlogmessages(systemdunit, priority=LOG_INFO):
+def recentlogmessages(systemdunit, priority=LOG_WARNING):
     logList = []
     j = journal.Reader()
     log_time = time.time() - (24 * 60**2 + 30 * 60)
@@ -37,3 +37,6 @@ def probtcpport(address, portnumber):
         return True
     except:
         return False
+
+def diskusagedir(dirname):
+    
