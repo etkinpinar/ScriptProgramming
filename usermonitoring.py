@@ -61,8 +61,3 @@ def cputimeperuser():
         #links cpu times to usernames in the dictionary    
         cputimes[process.username()] = cputimes.setdefault(process.username(), 0) + (process.cpu_times().user + process.cpu_times().system)
     return cputimes
-        
-        
-cputimeperuser()
-
-
