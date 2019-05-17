@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-04-23
+# DATE OF LAST CHANGE: 2019-05-17
 ##############################################
 
 import apachelog
@@ -24,16 +24,3 @@ print("Number of unique months: {}".format(len(list(elements['Month']))))
 printpopular(elements['Month'])
 
 
-
-
-
-
-
-
-
-
-
-   # elements = {'IPaddress':{}, 'Date':{}, 'Method':{}, 'Path':{}, 'Status Code':{},
-    #            'Size':{}, 'Referer':{}, 'User-Agent':{} }
-    #turn keys into a list, it makes easier to write sections into a dictionary 
-    #keys = list(elements)

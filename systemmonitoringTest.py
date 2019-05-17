@@ -3,12 +3,14 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-04-22
+# DATE OF LAST CHANGE: 2019-05-17
 ##############################################
 
 import systemmonitoring
 from syslog import (LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR,
                     LOG_WARNING, LOG_NOTICE, LOG_INFO, LOG_DEBUG)
+from os import getuid
+import pwd
 
 #function prints out the log list for recentlogmessages() function
 def printLogs(logList):  
@@ -17,13 +19,11 @@ def printLogs(logList):
     else:
         print("Logs not found. Either there is no recent log messages with given priority or there is no such unit.")
 
-###########  Main begins  ###########
-
 print("Welcome to test script for 'systemmonitoring' module!")
-selection = (input("Press 1 for recentlogmessages() or press 2 for probtcpport(): ")).strip()
-while selection !="1" and selection !="2" and selection:
+selection = (input("Press 1 for recentlogmessages(), press 2 for probtcpport() or press 3 for diskusagedir(): ")).strip()
+while selection !="1" and selection !="2" and selection !="3" and selection:
     selection = (input("Please enter a valid input: ")).strip()
-    
+######  recentlogmessages() begins ######  
 if selection == "1":
     logList = []                    
     selection = (input("Press 'Enter' for existing test or enter a systemd unit: ")).strip()
@@ -46,7 +46,9 @@ if selection == "1":
             print("\u001b[37;1m--- {} Logs with priority {} ---\u001b[0m".format(unit[0],unit[1]))
             logList = systemmonitoring.recentlogmessages(unit[0],unit[1])
             printLogs(logList)
+#######  recentlogmessages() ends #######  
 
+#########  probtcpport() begins #########
 elif selection == "2":
     selection = input("Press 'Enter' for existing test or enter an ip address and port: ")
     
@@ -66,7 +68,23 @@ elif selection == "2":
             if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
             else: status = "fail"
             print("Probing {} on port {}: {}".format(address[0], address[1], status))
+##########  probtcpport() ends ########## 
+
+#########  diskusagedir() begins ######## 
+elif selection == "3":
+    selection = (input("Press 'Enter' for existing test or enter a path: ")).strip()
+    if selection:
+        systemmonitoring.diskusagedir(selection)
+    else:
+        currentUser = pwd.getpwuid(getuid()).pw_name
+        currentUserHome = " /home/{} ".format(currentUser)
+        print("\u001b[37;1m{:-^27}\u001b[0m".format(currentUserHome))
+        systemmonitoring.diskusagedir(currentUserHome.strip())
+        print("\u001b[37;1m{:-^27}\u001b[0m".format(" /tmp "))
+        systemmonitoring.diskusagedir("/tmp")
+        print("\u001b[37;1m{:-^27}\u001b[0m".format(" /invalid/directory "))
+        systemmonitoring.diskusagedir("/invalid/directory")
+        print("\u001b[37;1m{:-^27}\u001b[0m".format(" /root "))
+        systemmonitoring.diskusagedir("/root")
     
-    
-    
-    
+##########  diskusagedir() ends #########     

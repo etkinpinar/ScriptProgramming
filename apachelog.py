@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-04-23
+# DATE OF LAST CHANGE: 2019-04-26
 ##############################################
 
 import re
@@ -18,10 +18,7 @@ def aggregatelog(filename):
         for line in logfile:
             line = line.strip()
             #tuple contains different sections such as ip address,method,etc.
-            try:
-                sections = sep_re.match(line).groups()
-            except:
-                continue
+            sections = sep_re.match(line).groups()
             #evaluating sections
             for i in range(len(sections)):    
                 elements[keys[i]][sections[i]] = elements[keys[i]].setdefault(sections[i], 0) + 1     
