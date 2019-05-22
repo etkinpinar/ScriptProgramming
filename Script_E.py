@@ -12,5 +12,5 @@ with open("alphabet.txt", "r") as alphabetfile:
     for line in alphabetfile: 
         alphabet[line.strip()] = lineNumber
         lineNumber += 1
-for keys in alphabet:
+for keys in sorted(alphabet):
     print("{} : {}".format(keys,alphabet[keys]))
