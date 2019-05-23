@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-04-24
+# DATE OF LAST CHANGE: 2019-05-23
 ##############################################
 
 import usermonitoring
@@ -23,7 +23,7 @@ if selection == "1":
         uid = user['UID']
         name = user['username']
         shell = user['shell']
-        print(f'{status}| {uid:5}| {name:25}| {shell}')
+        print("{}| {:5}| {:25}| {}".format(status,uid,name,shell))
 ################# listuser() ends ##################
 
 ############## diskusagehome() begins ##############
