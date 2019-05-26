@@ -1,4 +1,12 @@
-﻿Import-Module ActiveDirectory
+﻿################## METADATA ##################
+# NAME: Etkin Pinar
+# USERNAME: a18etkpi
+# COURSE: Scriptprogramming IT384G - Spring 2019
+# ASSIGNMENT: Assignment 2 - Powershell
+# DATE OF LAST CHANGE: 2019-05-24
+##############################################
+
+Import-Module ActiveDirectory
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Web
