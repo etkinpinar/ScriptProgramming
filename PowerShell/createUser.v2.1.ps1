@@ -77,7 +77,6 @@ foreach ($user in $content) {
     #checks whether user is already in the current users, pass card number is used for the condition
     if ((Get-ADUser -filter {comment -eq $passCardNumber}) -eq $null){ 
         #list contains return values
-        $user.PassCardNumber
         $list = createUsername $user
         $username = $list[0]
         $user = $list[1] 
@@ -93,7 +92,8 @@ foreach ($user in $content) {
             New-ADOrganizationalUnit @OU
         }
         #creates user
-        $randPW = [System.Web.Security.Membership]::GeneratePassword(10,2)
+        $randPW = [System.Web.Security.Membership]::GeneratePassword(12,1)
+        $randPW = $randPW + "0aA"
         $user = @{
             Name = $user.Name
             GivenName = $name[0]
@@ -129,7 +129,7 @@ foreach ($user in $content) {
         Set-Content -Path $dir"users\$username.txt" -Value "Login: $username@script.local`r`nPassword: $randPW"
     
     }else{
-        Write-Host $user.Name"is already exists with PCN"$passCardNumber
+        Write-Host $user.Name"is already exists with PCN"
     }
 }
 write-host "Group control begins!"
@@ -147,7 +147,6 @@ foreach ($user in $userlist) {
                     if ($role -eq $group.ToLower()){
                         #controls whether the group is same as in the text file
                         if(-NOT ($group.ToLower() -eq $user2.Department)){
-                        write-host $user
                             #adds new group membership for the user
                             Add-ADGroupMember -Identity $user2.Department -Members $user.SamAccountName
                             #deletes previous membership
@@ -164,3 +163,35 @@ foreach ($user in $userlist) {
         }
     }
 }
+
+# SIG # Begin signature block
+# MIIFWAYJKoZIhvcNAQcCoIIFSTCCBUUCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUK0rnNsStamJ2YnI+mTXyV92V
+# KXugggL6MIIC9jCCAd6gAwIBAgIQGRr/2QujKJtCHJodGC9IKTANBgkqhkiG9w0B
+# AQsFADATMREwDwYDVQQDDAhUZXN0Q2VydDAeFw0xOTA1MjgxNjE0MjBaFw0yMDA1
+# MjgxNjM0MjBaMBMxETAPBgNVBAMMCFRlc3RDZXJ0MIIBIjANBgkqhkiG9w0BAQEF
+# AAOCAQ8AMIIBCgKCAQEAxq7cDKyO4xW9Kcaj4N+LsgEhBG/B2JeEvby1vftCJ8b+
+# xe2IP+4HLAd4FTqlwYPDJfAQz2/q2zrhMihZqt/nEqAbfjvrOvh8R9fsavIiuiUG
+# yV+FfGi46HQQOSI2O1dkwqxE7Sh3ocLKIDE6kMXeJP663+NkDCMvOki/JSdX7iuS
+# z6Vm/IoFUswRYQzbRyJv8yvd+DoEGJ7sxzbpLvmTvLNeeneHTfgp3d6o7M+uuhgT
+# R9KfVHJDmN7ci1S4qB3MQVjrh7b3jhE71GnRLWqLnSdAXYs7NqtDO5B1bdXi+Inn
+# PHo/NRzaRy4sgzvR3oI05suYIfGpB3tjjQ1ef4BvZwIDAQABo0YwRDAOBgNVHQ8B
+# Af8EBAMCB4AwEwYDVR0lBAwwCgYIKwYBBQUHAwMwHQYDVR0OBBYEFEiQJQJScIAU
+# 0yS37VBdwJ2zFHa5MA0GCSqGSIb3DQEBCwUAA4IBAQC62mwgofGKWe/h8NK9ObKG
+# GollakQ7WDsNFlT09EJA3ssk8R4KPJtmxX9QI5cWQSHG1JdEIuREEayhhmdClsoD
+# u19Rn2b/vE/EPRlr+TjVs3hmVIZ9NhQL12tcEzT1FD3cPxqNrSkAWvplnefh8BMz
+# gj8lJ6fHzX0P38A7XKsWioO37Lyzi9MrAYbR9kvYPjoq83rJi2i7uOwmafclTXfi
+# WmKy90EYc53ucxX0OwDUuEdnf+bJw7AdZlcF8MnwlnmdxA3xSOxnTovclEEMOrnf
+# Xmz87423Kjukc9AXwr6Ks4QVdWfnUfBlCG1vN+z/hUtWmdtdL2pUJuh4kKbRf1Kk
+# MYIByDCCAcQCAQEwJzATMREwDwYDVQQDDAhUZXN0Q2VydAIQGRr/2QujKJtCHJod
+# GC9IKTAJBgUrDgMCGgUAoHgwGAYKKwYBBAGCNwIBDDEKMAigAoAAoQKAADAZBgkq
+# hkiG9w0BCQMxDAYKKwYBBAGCNwIBBDAcBgorBgEEAYI3AgELMQ4wDAYKKwYBBAGC
+# NwIBFTAjBgkqhkiG9w0BCQQxFgQUvRoSwthG1LLFAjL/yKvTK3yW4akwDQYJKoZI
+# hvcNAQEBBQAEggEAcyjcJYnFFUmda7LKQBdJDzh399QKfUh6aMAfPomld1rM4PQs
+# CktGxBMgxIc9oBc3VMI1Ieo+FCpaho4+/11Btmm7Rw7sgz0wmqIuwaTZjhKfYH9S
+# q1qQhzr8bjLKhH+SbVhADI34ElPIZrplRG0Zb9UHPeUuvDiglIv+yH4RS87jxqI0
+# HDc1Q4pTcWUvt3No5SOEvP2AJkGYZvKTpBjjEhnEiWMhJNpds5Y65CJrf/zdsyRL
+# cZiqNagsNnkDadQLVtK7EJDP4hc1pbKnQNLFFzBpzbBNr45+mrKkwUHGW9WHI6p8
+# UyAX3vDhi57TvpHLUogLZlaTVIfBnAelq9IyHQ==
+# SIG # End signature block
