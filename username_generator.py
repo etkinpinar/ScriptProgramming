@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-05-28
+# DATE OF LAST CHANGE: 2019-05-29
 ##############################################
 
 import datetime
@@ -12,8 +12,8 @@ from unidecode import unidecode
 #returns name and surname as elements of a tuple
 def nameSplitter(name):
     partedname = name.partition(",")
-    name = partedname[0].lower()
-    surname = partedname[2].strip().lower()
+    name = partedname[2].strip().lower()
+    surname = partedname[0].strip().lower()
     return (name, surname)
 
 #creates a list that contains letters in the alphabet
