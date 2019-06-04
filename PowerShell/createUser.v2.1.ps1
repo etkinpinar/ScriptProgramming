@@ -91,7 +91,7 @@ foreach ($user in $content) {
             New-ADOrganizationalUnit @OU
         }
         #creates user
-        $randPW = [System.Web.Security.Membership]::GeneratePassword(12,1)
+        $randPW = [System.Web.Security.Membership]::GeneratePassword(8,0)
         $randPW = $randPW + "0aA"
         $user = @{
             Name = $user.Name
