@@ -8,7 +8,7 @@
 
 import apachelog
 
-#finds the most popular value for the given attribute
+#finds and prints the most popular value for the given attribute
 def printpopular(dict):
     maximum = max(dict, key=lambda key:dict[key])
     print("  Most popular value is: {} ({} times)".format(maximum, dict[maximum]))
