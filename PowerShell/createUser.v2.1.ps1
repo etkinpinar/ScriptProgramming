@@ -125,8 +125,8 @@ foreach ($user in $content) {
             Add-ADGroupMember -Identity $user.department -Members $username 
         }
         $dir = $FileBrowser.InitialDirectory
-        New-Item ($FileBrowser.InitialDirectory+"users\$username.txt")
-        Set-Content -Path $dir"users\$username.txt" -Value "Login: $username@script.local`r`nPassword: $randPW"
+        New-Item ($FileBrowser.InitialDirectory+"$username.txt")
+        Set-Content -Path $dir"$username.txt" -Value "Login: $username@script.local`r`nPassword: $randPW"
     
     }else{
         Write-Host $user.Name"is already exists with PCN"
