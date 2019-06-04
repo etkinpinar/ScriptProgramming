@@ -70,7 +70,6 @@ try{
 catch{
     exit
 }
-#uniquenumber variable is used for making usernames unique
 foreach ($user in $content) {
     
     $passCardNumber = $user.PassCardNumber 
