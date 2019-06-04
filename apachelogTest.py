@@ -3,11 +3,12 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-05-17
+# DATE OF LAST CHANGE: 2019-06-04
 ##############################################
 
 import apachelog
 
+#finds the most popular value for the given attribute
 def printpopular(dict):
     maximum = max(dict, key=lambda key:dict[key])
     print("  Most popular value is: {} ({} times)".format(maximum, dict[maximum]))
