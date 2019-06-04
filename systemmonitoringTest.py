@@ -3,7 +3,7 @@
 # USERNAME: a18etkpi
 # COURSE: Scriptprogramming IT384G - Spring 2019
 # ASSIGNMENT: Assignment 1 - Python
-# DATE OF LAST CHANGE: 2019-05-17
+# DATE OF LAST CHANGE: 2019-06-04
 ##############################################
 
 import systemmonitoring
@@ -34,7 +34,7 @@ if selection == "1":
     else:
         #random systemd units with info priority for testing
         unitList = [["rsyslog.service",LOG_INFO], ["cron.service",LOG_INFO], 
-                    ["aaaw.daemon",LOG_INFO], ["network.service",LOG_INFO]]   
+                    ["aaaw.daemon",LOG_INFO], ["network.service",LOG_INFO], ["ssh.service",LOG_INFO]]   
     
         for unit in unitList:
             #query without specifying priority level
@@ -61,8 +61,8 @@ elif selection == "2":
         print("Probing {} on port {}: {}".format(selection[0], selection[1], status))      
     else:
         #random address-port combinations
-        addressList= [["127.0.0.1", "25"], ["127.0.0.1","80"], ["127.0.0.53","53"],
-                      ["www.something.com","443"], ["127.0.0.1","6899"], ["www.google.com","443"]]
+        addressList= [["127.0.0.1", "25"], ["127.0.0.1","666"], ["www.example.com","443"],
+                      ["www.something.com","443"], ["his.se","443"], ["www.google.com","443"]]
         
         for address in addressList:
             if systemmonitoring.probtcpport(address[0],address[1]): status = "success" 
