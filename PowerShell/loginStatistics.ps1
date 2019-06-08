@@ -56,7 +56,7 @@ foreach ($log in (Get-WinEvent -FilterHashtable @{LogName = "Security"; ID="4771
         $failedlogins[$log.properties[0].Value] = $failedlogins[$log.properties[0].Value] + 1
     }
 }
-#calculates failed-successful login ratio for users with failed logins££
+#calculates failed-successful login ratio for users with failed logins
 foreach ($key in $failedlogins.Keys){
         $ratio = $failedlogins[$key] / ($succesfullogins[$key]+$failedlogins[$key])
         Write-Host "Ratio for $key : $ratio"
